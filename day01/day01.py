@@ -1,4 +1,3 @@
-
 from typing import List;
 import os;
 import time;
@@ -19,7 +18,7 @@ class Frequency:
     def __init__(self):
         self.currentFrequency = 0
 
-    def calibrate(self, num: int):
+    def calibrate(self, num):
         self.currentFrequency += num;
 
 
@@ -27,24 +26,23 @@ class Frequency:
 lines = read_input('input.txt');
 # solve the problem here!
 f = Frequency();
-
-
-
+g = Frequency();
 
 for line in lines:
     f.calibrate(line)
-print(f.currentFrequency);
+print(f.currentFrequency); 
+
 
 seen_frequencies = set()
 repeat_frequency = None
 
-seen_frequencies = set()
 while repeat_frequency is None:
     for line in lines:
-        f.calibrate(line)
-        if f.currentFrequency in seen_frequencies:
-            repeat_frequency = f.currentFrequency
+        g.calibrate(line)
+        if g.currentFrequency in seen_frequencies:
+            repeat_frequency = g.currentFrequency
             break
-        seen_frequencies.add(f.currentFrequency)
+        print(f"added {g.currentFrequency} at {len(seen_frequencies)}")
+        seen_frequencies.add(g.currentFrequency)
 
 print(f"first repeated result: {repeat_frequency}")
