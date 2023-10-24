@@ -19,10 +19,32 @@ class Frequency:
     def __init__(self):
         self.currentFrequency = 0
 
-    def calibrate(self, num: int): 
-        pass
+    def calibrate(self, num: int):
+        self.currentFrequency += num;
 
 
 # put your inputs file next to this file!
 lines = read_input('input.txt');
 # solve the problem here!
+f = Frequency();
+
+
+
+
+for line in lines:
+    f.calibrate(line)
+print(f.currentFrequency);
+
+seen_frequencies = set()
+repeat_frequency = None
+
+seen_frequencies = set()
+while repeat_frequency is None:
+    for line in lines:
+        f.calibrate(line)
+        if f.currentFrequency in seen_frequencies:
+            repeat_frequency = f.currentFrequency
+            break
+        seen_frequencies.add(f.currentFrequency)
+
+print(f"first repeated result: {repeat_frequency}")
