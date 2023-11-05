@@ -1,6 +1,8 @@
 from typing import List;
 import os;
 import time;
+import matplotlib.pyplot as plt
+import numpy as np
 
 def read_input(file_name):
     current_path = os.path.dirname(__file__)
@@ -35,14 +37,40 @@ print(f.currentFrequency);
 
 seen_frequencies = set()
 repeat_frequency = None
+times = []
+start_time = time.time()
+i = 0 
+
 
 while repeat_frequency is None:
     for line in lines:
+        i += 1
         g.calibrate(line)
-        if g.currentFrequency in seen_frequencies:
+
+        ret_val = g.currentFrequency in seen_frequencies
+        if i % 100 == 0:
+            times.append((time.time() - start_time) * 1_000_000)
+            start_time = time.time() 
+
+        if ret_val:
             repeat_frequency = g.currentFrequency
             break
-        print(f"added {g.currentFrequency} at {len(seen_frequencies)}")
+        #print(f"added {g.currentFrequency} at {len(seen_frequencies)}")
         seen_frequencies.add(g.currentFrequency)
 
 print(f"first repeated result: {repeat_frequency}")
+
+
+y = times
+x = np.linspace(1, len(times),len(times))
+
+plt.plot(x, y, label='Data Points', color='blue', linestyle='--')
+plt.xlabel('X-axis Label')
+plt.ylabel('Y-axis Label')
+plt.title('Sample Plot')
+plt.legend()
+
+plt.savefig('plot.png', dpi=300, bbox_inches='tight')
+
+plt.show()
+
