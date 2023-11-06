@@ -1,4 +1,4 @@
-from typing import List;
+
 import os;
 import time;
 import matplotlib.pyplot as plt
